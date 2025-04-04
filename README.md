@@ -1,10 +1,10 @@
-#Binance IDO Tracker Bot
+# Binance IDO Tracker Bot
 
-##Overview
+## Overview
 
 Binance IDO Tracker Bot is a WebSocket-based bot written in TypeScript. It listens for NewIDOContract events from a specific smart contract and sends notifications to a Telegram channel.
 
-##Features
+## Features
 
 - Listens for NewIDOContract events via WebSocket.
 - Retrieves the transaction data that triggered the event.
@@ -12,15 +12,15 @@ Binance IDO Tracker Bot is a WebSocket-based bot written in TypeScript. It liste
 - Fetches the ERC-20 token symbol for better readability.
 - Sends notifications to a Telegram channel.
 
-##Installation
+## Installation
 
-###Prerequisites
+### Prerequisites
 - Node.js (version 18 or later)
 - TypeScript installed globally (npm install -g typescript)
 - Telegram Bot API token
 - WebSocket RPC URL (e.g., Alchemy, Infura)
 
-###Steps
+### Steps
 1. Clone the repository:
    ```
    git clone https://github.com/cunnil-eth/Binance-IDO-Tracker.git
