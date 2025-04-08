@@ -9,7 +9,8 @@ Binance IDO Tracker Bot is a WebSocket-based bot written in TypeScript. It liste
 - Listens for NewIDOContract events via WebSocket.
 - Retrieves the transaction data that triggered the event.
 - Extracts function parameters from the transaction input data.
-- Fetches the ERC-20 token symbol for better readability.
+- Fetches the ERC-20 token symbol for better readability and double-checking.
+- Checks for BNB or CAKE buy options.
 - Sends notifications to a Telegram channel.
 
 ## Installation
