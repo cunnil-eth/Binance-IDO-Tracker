@@ -40,9 +40,22 @@ contract.on("NewIDOContract", async (idoAddress: string, event: any) => {
       const addresses = decoded.args[0]; 
       const timestamps = decoded.args[1]; 
       const tokenAddress = addresses[2];
+      const isBnb = ethers.ZeroAddress == addresses[0] && ethers.ZeroAddress == addresses[1];
+
+      // Configuring main message
+      const baseMessage = `# 🔔🔔🔔 New IDO 
+      ## ${isBnb ? '🔶🔶🔶 BNB BUY' : '🥞🥞🥞 CAKE BUY'}
+      ## IDO address: https://bscscan.com/address/${idoAddress}
+
+      ## 📅📅📅 IDO timestamps:
+      - Start: ${new Date(Number(timestamps[0]) * 1000).toLocaleString()} UTC +3
+      - End: ${new Date(Number(timestamps[1]) * 1000).toLocaleString()} UTC +3
+      `;
+
+      await bot.telegram.sendMessage(TELEGRAM_CHAT_ID, baseMessage, { parse_mode: "Markdown" });
 
       // Searching for symbol
-      let tokenSymbol = "Unknown";
+      let tokenSymbol = '';
       if (ethers.isAddress(tokenAddress)) {
         try {
           const tokenContract = new ethers.Contract(tokenAddress, erc20Abi, provider);
@@ -52,20 +65,12 @@ contract.on("NewIDOContract", async (idoAddress: string, event: any) => {
         }
       }
 
-      // Configuring message
-      const message = `🔔 *New IDO!*
-      *IDO address:* https://bscscan.com/address/${idoAddress}
-
-      *Token*
+      const extraMessage = `# Token
       - Address: https://bscscan.com/address/${tokenAddress}
       - Symbol: ${tokenSymbol}
-
-      📅 *IDO timestamps:*
-      - Start: ${new Date(Number(timestamps[0]) * 1000).toLocaleString()} 
-      - End: ${new Date(Number(timestamps[1]) * 1000).toLocaleString()} 
       `;
 
-      await bot.telegram.sendMessage(TELEGRAM_CHAT_ID, message, { parse_mode: "Markdown" });
+      await bot.telegram.sendMessage(TELEGRAM_CHAT_ID, extraMessage, { parse_mode: "Markdown" });
     }
   } catch (error) {
     console.error("Event processing error:", error);
